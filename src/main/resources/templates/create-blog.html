@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Blog</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+    <script type="text/javascript">
+        // Function to hide the success message after 5 seconds
+        function hideSuccessMessage() {
+            var successMessageDiv = document.getElementById("loginSuccessMessage");
+            if (successMessageDiv) {
+                setTimeout(function() {
+                    successMessageDiv.style.display = 'none';
+                }, 5000); // 5000 milliseconds = 5 seconds
+            }
+        }
+    </script>
+</head>
+<body onload="hideSuccessMessage()">
+    <div class="wrapper">
+        <h1>Welcome to Blog Service</h1>
+    </div>
+    <div class="navbar">
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/blogs}" href="/blogs">View Latest Blogs</a>
+        <a th:href="@{/blogs/new}" href="/blogs/new">Create a New Blog</a>
+        <a th:if="${session.loggedInUser == null}" th:href="@{/login}" href="/login" class="login-button">Login</a>
+        <a th:if="${session.loggedInUser != null}" th:href="@{/logout}" href="/logout" class="logout-button">Logout</a>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h2>Create New Blog</h2>
+            <div id="loginSuccessMessage" th:if="${session.loginSuccess}" style="color: green;">
+                <p th:text="${session.loginSuccess}"></p>
+            </div>
+
+            <!-- Display user details -->
+            <div th:if="${session.loggedInUser}">
+                <p th:text="'User Name: ' + ${session.loggedInUser.username}"></p>
+                <!-- Add more details as needed -->
+            </div>
+            <form th:action="@{/blogs}" method="post" th:object="${blog}">
+                <!-- Hidden field for user ID -->
+                <input type="hidden" name="creatorId" th:value="${session.loggedInUser.id}" />
+
+                <!-- Read-only field for displaying user ID -->
+                <div class="form-group">
+                    <label for="creatorId">Creator ID:</label>
+                    <input type="text" id="creatorId" name="creatorId" th:value="${session.loggedInUser.id}" readonly />
+                </div>
+                <div>
+                    <label for="title">Title:</label><br>
+                    <input type="text" id="title" name="title" required><br>
+                </div>
+                <div>
+                    <label for="content">Content:</label><br>
+                    <textarea id="content" name="content" rows="4" required></textarea><br>
+                </div>
+                <div>
+                    <label for="tags">Tags (comma-separated):</label><br>
+                    <input type="text" id="tags" name="tags"><br>
+                </div>
+                <div>
+                    <button type="submit">Create Blog</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Blog Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

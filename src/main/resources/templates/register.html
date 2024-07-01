@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Welcome to Blog Service</h1>
+    </div>
+    <div class="navbar">
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/blogs}" href="/blogs">View Latest Blogs</a>
+        <a th:href="@{/blogs/new}" href="/blogs/new">Create a New Blog</a>
+        <a th:href="@{/register}" href="/register">Registration</a>
+		<a th:if="${session.loggedInUser == null}" th:href="@{/login}" href="/login" class="login-button">Login</a>
+		<a th:if="${session.loggedInUser != null}" th:href="@{/logout}" href="/logout" class="logout-button">Logout</a>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h2>User Registration</h2>
+            <form th:action="@{/register}" method="post">
+                <div class="form-group">
+                    <label for="id">ID:</label>
+                    <input type="text" id="id" name="id" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already registered? <a th:href="@{/login}" href="/login">Login</a></p> <!-- Link to the login page -->
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Blog Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

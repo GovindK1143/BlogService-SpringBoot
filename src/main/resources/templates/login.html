@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Welcome to Blog Service</h1>
+    </div>
+    <div class="navbar">
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/blogs}" href="/blogs">View Latest Blogs</a>
+        <a th:href="@{/blogs/new}" href="/blogs/new">Create a New Blog</a>
+        <a th:href="@{/register}" href="/register">Registration</a>
+        <a th:href="@{/login}" href="/login" class="login-button">Login</a>
+    </div>
+    <div class="container">
+        <div class="content">
+			<div th:if="${param.error}" style="color: red;">
+			    <p th:text="${loginMessage}"></p>
+			</div>
+            <h2>Login</h2>
+            <form th:action="@{/login}" method="post" th:object="${user}">
+                <div>
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" name="username" required><br>
+                </div>
+                <div>
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" required><br>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+			<div th:if="${error}" class="error">
+			                <p th:text="${error}"></p>
+			            </div>
+			            <!-- Display login success message -->
+			            <div th:if="${loginSuccess}" class="success">
+			                <p th:text="${loginSuccess}"></p>
+			            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Blog Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

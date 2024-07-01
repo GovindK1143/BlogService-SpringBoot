@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Blog</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Welcome to Blog Service</h1>
+    </div>
+    <div class="navbar">
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/blogs}" href="/blogs">View Latest Blogs</a>
+        <a th:href="@{/blogs/new}" href="/blogs/new">Create a New Blog</a>
+        <a th:href="@{/register}" href="/register">Registration</a>
+		<a th:if="${session.loggedInUser == null}" th:href="@{/login}" href="/login" class="login-button">Login</a>
+		<a th:if="${session.loggedInUser != null}" th:href="@{/logout}" href="/logout" class="logout-button">Logout</a>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h2>Edit Blog</h2>
+            <form th:action="@{'/blogs/' + ${blog.id} + '/edit'}" method="post" th:object="${blog}">
+                <input type="hidden" th:field="*{id}"> 
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" th:field="*{title}" placeholder="Title" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content:</label>
+                    <textarea th:field="*{content}" placeholder="Content" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags:</label>
+                    <input type="text" id="tags" name="tags" th:field="*{tags}" placeholder="Comma-separated">
+                </div>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Blog Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

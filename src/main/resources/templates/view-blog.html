@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Blog</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+    
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Welcome to Blog Service</h1>
+    </div>
+    <div class="navbar">
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/blogs}" href="/blogs">View Latest Blogs</a>
+        <a th:href="@{/blogs/new}" href="/blogs/new">Create a New Blog</a>
+        <a th:href="@{/register}" href="/register">Registration</a>
+		<a th:if="${session.loggedInUser == null}" th:href="@{/login}" href="/login" class="login-button">Login</a>
+		<a th:if="${session.loggedInUser != null}" th:href="@{/logout}" href="/logout" class="logout-button">Logout</a>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="blog-header">
+                <h2 th:text="${blog.title}"></h2>
+                <div class="blog-actions">
+                    <a th:href="@{/blogs/{id}/edit(id=${blog.id})}">Edit</a>
+                    <a th:href="@{/blogs/{id}/delete(id=${blog.id})}">Delete</a>
+                </div>
+            </div>
+            <p th:text="${blog.content}"></p>
+            <p><strong>Tags:</strong> <span th:text="${blog.tags}"></span></p>
+            <div class="comments">
+                <h3>Comments</h3>
+                <ul class="comment-list">
+                    <li th:each="comment : ${blog.comments}">
+                        <span th:text="${comment}"></span>
+                    </li>
+                </ul>
+            </div>
+            <form th:action="@{'/blogs/' + ${blog.id} + '/comment'}" method="post">
+                <input type="text" name="comment" placeholder="Enter your comment">
+                <button type="submit">Add Comment</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Blog Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

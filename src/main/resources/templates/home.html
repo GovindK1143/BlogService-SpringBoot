@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Application</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Welcome to Blog Service</h1>
+    </div>
+    <div class="navbar">
+        <a th:href="@{/}" href="/">Home</a>
+        <a th:href="@{/blogs}" href="/blogs">View Latest Blogs</a>
+        <a th:href="@{/blogs/new}" href="/blogs/new">Create a New Blog</a>
+        <a th:href="@{/register}" href="/register">Registration</a>
+		<a th:if="${session.loggedInUser == null}" th:href="@{/login}" href="/login" class="login-button">Login</a>
+		        <a th:if="${session.loggedInUser != null}" th:href="@{/logout}" href="/logout" class="logout-button">Logout</a>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h2>Recent Blog Posts</h2>
+            <div th:each="blog : ${blogs}" class="blog-post">
+                <h3 th:text="${blog.title}"></h3>
+                <p th:text="${blog.content}"></p>
+                <a th:href="@{/blogs/{id}(id=${blog.id})}" href="#">Read More</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Blog Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

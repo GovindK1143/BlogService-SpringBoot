@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <title>Blogs</title>
+	<link rel="stylesheet" type="text/css" th:href="@{css/styles.css}" />
+</head>
+<body>
+	<h1>Welcome to Blog Service</h1>
+	    <div class="navbar">
+	        <a th:href="@{/}" href="/">Home</a>
+	        <a th:href="@{/blogs}" href="/blogs">View Latest Blogs</a>
+	        <a th:href="@{/blogs/new}" href="/blogs/new">Create a New Blog</a>
+			<a th:href="@{/register}" href="/register">Registration</a>
+	        <!-- Add more navigation links as needed -->
+	    </div>
+    <h1>Blogs</h1>
+    <ul>
+        <li th:each="blog : ${blogs}">
+            <a th:href="@{/blogs/{id}(id=${blog.id})}" th:text="${blog.title}"></a>
+        </li>
+    </ul>
+</body>
+</html>
